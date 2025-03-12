@@ -1,21 +1,20 @@
 'use strict';
 let options = {}
+options.tableName = 'Reviews';
 if(process.env.NODE_ENV === 'production'){
-  options.schema = process.env.SCHEMA
+  options.schema = process.env.SCHEMA;
+ 
 }
 module.exports = {
   async up (queryInterface, Sequelize) {
-    // await queryInterface.addColumn("Reviews", "numReviews",{
-    //     type: Sequelize.FLOAT,
-    //     allowNull:true,
-      
-    // },options)
+    await queryInterface.addColumn(options, "numReviews",{
+      type: Sequelize.FLOAT,
+      allowNull:true,
+    })
   },
-
   async down (queryInterface, Sequelize) {
-    // options.tableName = "Reviews";
-    // await queryInterface.removeColumn(options, "numReviews", {}
-    // );
+    await queryInterface.removeColumn(options, "numReviews", {}
+    );
   }
 };
 
