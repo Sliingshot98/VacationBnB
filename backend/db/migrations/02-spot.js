@@ -1,6 +1,6 @@
 'use strict';
 
-const options = {}
+let options = {}
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
@@ -15,7 +15,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ownerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users'
+        },
+        onDelete: 'CASCADE'
       },
       address: {
         type: Sequelize.STRING

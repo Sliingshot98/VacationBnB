@@ -22,7 +22,7 @@ module.exports = {
         name: "Audubon Aquarium",
         description: "This is aan Aquraium",
         price: 1000,
-        avgStarRating: 4,
+        avgRating: 4,
         previewImage: "al;dsgaetrjel;ksdjgl"
         
       },
@@ -37,7 +37,7 @@ module.exports = {
         name: "Home away from home",
         description: "This home is near the city but far enough to be in the country",
         price: 1500.00,
-        avgStarRating: 5,
+        avgRating: 5,
         previewImage: "al;dsgsjsdgfl;ksdjgl"
       },
       {
