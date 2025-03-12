@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ReviewImage extends Model {
     /**
@@ -29,20 +27,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT
     },
   },
-
-    {
-       defaultScope: {
-      attributes: {
-        exclude: [
-          'createdAt',
-          'updatedAt',
-          'reviewId'
+  {
+    defaultScope: {
+    attributes: {
+    exclude: [
+        'createdAt',
+        'updatedAt',
+        'reviewId'
         ]
       }
     },
     sequelize,
     modelName: 'ReviewImage',
-    }
+  }
   );
   return ReviewImage;
 };

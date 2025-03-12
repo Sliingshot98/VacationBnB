@@ -1,7 +1,5 @@
 'use strict';
-const { 
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
     /**
@@ -29,14 +27,14 @@ module.exports = (sequelize, DataTypes) => {
     ownerId: {
       type: DataTypes.INTEGER,
       references:{
-        model:"User"
+        model:"Users"
       },
       onDelete:"CASCADE"
     },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
-        unique: true,
+      unique: true,
     },
     city: {
       type: DataTypes.STRING,
@@ -53,17 +51,17 @@ module.exports = (sequelize, DataTypes) => {
     lat: {
       type: DataTypes.DECIMAL,
       allowNull: false,
-        unique: true,
+      unique: true,
     },
     lng: {
       type: DataTypes.DECIMAL,
       allowNull: false,
-        unique: true,
+      unique: true,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-        unique: true,
+      unique: true,
     },
     description: {
       type: DataTypes.STRING,
@@ -75,11 +73,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     avgRating: {
       type: DataTypes.DECIMAL,
-      
     },
     previewImage: {
       type: DataTypes.TEXT,
-      
     }
   },
    {

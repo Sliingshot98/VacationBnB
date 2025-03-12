@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
      allowNull: false,
      references: {
         model: "Spots"
-     },onDelete: "CASCADE"
+     },
+     onDelete: "CASCADE"
    },
    url: {
      type: DataTypes.TEXT,
