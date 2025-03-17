@@ -3,7 +3,8 @@ import { csrfFetch } from "../csrf";
 
 const ALL_SPOTS = 'spots/getAllSpots'
 const SPOT_DETAILS = 'spots/getSpotDeatils'
-
+const USER_SPOT_DETAILS = 'spots/getUserSpotDetails'
+const CREATE_A_SPOT = 'spots/postCreateASpot'
 
 const spots = (spots) => {
     return {
@@ -14,6 +15,18 @@ const spots = (spots) => {
 const details = (spots)=> {
     return {
         type: SPOT_DETAILS ,
+        payload: spots
+    } 
+}
+const userSpotDetails = (spots)=> {
+    return {
+        type: USER_SPOT_DETAILS ,
+        payload: spots
+    }
+}
+const create = (spots)=> {
+    return {
+        type: CREATE_A_SPOT ,
         payload: spots
     }
 }
@@ -27,13 +40,35 @@ export const allSpots = () => async (dispatch) => {
 
 //========== SPOTS DETAILS THUNK===================
 export const spotDetails = () => async (dispatch) => {
-    const response = await csrfFetch("/api/spot/:spotId");
+    const response = await csrfFetch("/api/spots/:spotId");
     const data = await response.json();
     dispatch(details(data.Spots));
     return data;
 }
-//=========== CREATE A SPOT THUNK=====================
+//========== SPOTS DETAILS BY CURRENT USER THUNK========
+export const spotDetailsByUser = () => async (dispatch) => {
+    const response = await csrfFetch("/api/spots/current");
+    const data = await response.json();
+    dispatch(userSpotDetails(data.Spots));
+    return data;
+}
 
+
+//=========== CREATE A SPOT THUNK=====================
+export const createSpot = () => async (dispatch) => {
+    const response = await csrfFetch("/api/spots");
+    
+    return data;
+}
+
+
+
+//============ EDIT A SPOT THUNK=====================
+
+
+
+
+//==============DELETE A SPOT THUNK==================
 
 
 
@@ -46,7 +81,13 @@ const spotsReducer = (state = initialState, action) => {
     switch(action.type){
         case ALL_SPOTS:
             return {...state, spots: action.payload};
-        default:
+        case SPOT_DETAILS:
+            return {...state, deatils: action.payload};  
+        case USER_SPOT_DETAILS:
+            return {...state, userSpotDetails: action.payload};
+        case CREATE_A_SPOT:
+            return{}       
+        default: 
             return state;   
     }
 };
