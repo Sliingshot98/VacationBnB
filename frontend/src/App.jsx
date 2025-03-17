@@ -8,7 +8,6 @@ import AllSpots from './components/Spots';
 
 
 
-
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);

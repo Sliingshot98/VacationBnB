@@ -33,7 +33,7 @@ return (
             </div>
             <div className='details'>
                 <div className='price'>
-                        {ele.price}
+                        {ele.price} per night
                 </div>
             </div>
         </div>))
