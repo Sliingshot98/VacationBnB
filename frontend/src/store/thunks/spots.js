@@ -4,7 +4,7 @@ import { csrfFetch } from "../csrf";
 const ALL_SPOTS = 'spots/getAllSpots'
 const SPOT_DETAILS = 'spots/getSpotDeatils'
 const USER_SPOT_DETAILS = 'spots/getUserSpotDetails'
-const CREATE_A_SPOT = 'spots/postCreateASpot'
+const CREATE_SPOT = 'spots/postCreateSpot'
 
 const spots = (spots) => {
     return {
@@ -26,7 +26,7 @@ const userSpotDetails = (spots)=> {
 }
 const create = (spots)=> {
     return {
-        type: CREATE_A_SPOT ,
+        type: CREATE_SPOT ,
         payload: spots
     }
 }
@@ -85,7 +85,7 @@ const spotsReducer = (state = initialState, action) => {
             return {...state, deatils: action.payload};  
         case USER_SPOT_DETAILS:
             return {...state, userSpotDetails: action.payload};
-        case CREATE_A_SPOT:
+        case CREATE_SPOT:
             return{}       
         default: 
             return state;   
