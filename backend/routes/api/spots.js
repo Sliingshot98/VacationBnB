@@ -124,6 +124,9 @@ router.get("/current", requireAuth, async (req, res, next) => {
 // Get details of a Spot from an id
 router.get("/:spotId", async (req, res, next) => {
   const spotId = parseInt(req.params.spotId);
+  if(isNaN(spotId)){
+    next()
+  }
   try {
     const spot = await Spot.findByPk(spotId, {
       include: [

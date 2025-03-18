@@ -1,23 +1,8 @@
-import { csrfFetch } from "../csrf";
+// import { csrfFetch } from "../csrf";
 
 
 
-//================GET ALL REVIEWS++++++++++++++++
-
-
-
-
-
-
-
-//=====================CREATE AREVIEW=================
-
-
-
-
-
-
-//=====================UPDATED REview++++++++++++++++++++++
+// //================GET ALL REVIEWS++++++++++++++++
 
 
 
@@ -25,7 +10,22 @@ import { csrfFetch } from "../csrf";
 
 
 
-//====================DETEL REVIEW======================
+// //=====================CREATE AREVIEW=================
+
+
+
+
+
+
+// //=====================UPDATED REview++++++++++++++++++++++
+
+
+
+
+
+
+
+// //====================DETEL REVIEW======================
 
 
 
@@ -35,13 +35,13 @@ import { csrfFetch } from "../csrf";
 
 
 
-const initialState = { reviews:null};
-const reviewsReducer = (state = initialState, action) => {
-    switch(action.type){
-        case ALL_REVIEWS:
-            return {...state, reviews: action.payload};
-        default: 
-            return state;   
-    }
-};
-export default reviewsReducer;
+// const initialState = { reviews:null};
+// const reviewsReducer = (state = initialState, action) => {
+//     switch(action.type){
+//         case ALL_REVIEWS:
+//             return {...state, reviews: action.payload};
+//         default: 
+//             return state;   
+//     }
+// };
+// export default reviewsReducer;

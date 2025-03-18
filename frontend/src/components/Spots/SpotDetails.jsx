@@ -1,37 +1,43 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './SpotDetails.css';
-import { useEffect, useInsertionEffect } from 'react';
+import { useEffect} from 'react';
 import { spotDetails } from '../../store/thunks/spots';
+import { useParams } from 'react-router-dom';
 
-function SpotDetails( spotId ) {
+function SpotDetails() {
     const dispatch = useDispatch();
-    const spots = useSelector(state => state.spotsReducer.spots)
+    const {id} = useParams();
+    const spot = useSelector(state => state.spotsReducer.details?.Spot)
     useEffect(() => {
-        dispatch(spotDetails(spotId));
-        if(!spots){
-            return <p>Hold your horses! This doesn't exist yet!</p>
+        if(!spot){
+         dispatch(spotDetails(id));
         }
-    })
-return(
-<>
-    <div className=''>
+    });
+    console.log(spot)
+return spot &&
+(<div className= 'Entire-detail'>
 
-
-
+    <div  className='NameOfSpot'>
+        {spot.name}
     </div>
-</>
+    <div className='CityStateCountry'>   
+        {spot.city}, {spot.state}, {spot.country}
+    </div>
+    <div className="PreviewImage">
+      {spot.previewImage}
+    </div>
+    <div className='Host'>
+        Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
+    </div>
+    <div className='Description'>
+        {spot.description}
+    </div>
+    <div className='Reviews'>
+        {spot.avgRating}
+    </div>
+    
+</div>)
+}
 
 
-
-)}
-
-
-
-
-
-
-
-
-
-
-export default spotDetails;
+export default SpotDetails;

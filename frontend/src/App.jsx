@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import * as sessionActions from './store/session';
 import AllSpots from './components/Spots';
+import SpotDetails from './components/Spots/SpotDetails';
 
 
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <AllSpots />
+      },
+      {
+        path: '/spots/:id',
+        element: <SpotDetails />
       }
     ]
   }
