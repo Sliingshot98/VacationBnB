@@ -22,20 +22,19 @@ return (
         {spots?.map((ele,idx)=> (     
         <div key={`${idx}`} className="spots-card" onClick={function(){navigateTo(`/spots/${ele.id}`)}}>
               {console.log(ele)}
-            <div className="spot-image">
-                    {ele.previewImage}
-            </div>
+            <img className="spot-image" src ={ele.previewImage}>                   
+            </img>
             <div className="location-starrating">
                 <div className='location'>
                         {ele.city}, {ele.state}
                 </div>
                 <div className='star-rating'>
-                        {ele.avgRating}
+                        {ele.avgRating} Stars
                 </div>
             </div>
             <div className='details'>
                 <div className='price'>
-                        {ele.price} per night
+                        ${ele.price} per night
                 </div>
             </div>
         </div>))

@@ -13,7 +13,7 @@ module.exports = {
     await SpotImage.bulkCreate ([
       {
         spotId: 1,
-        url: "https://www.google.com/local/place/fid/0x8620a66d391f6fb5:0x2160af1c86344b48/photosphere?iu=https://lh3.googleusercontent.com/p/AF1QipMxurDG1NaMdfVPipXcCf_V8nTZq6aRayAh19co%3Dw160-h106-k-no-pi-0-ya23.163603-ro-0-fo100&ik=CAoSLEFGMVFpcE14dXJERzFOYU1kZlZQaXBYY0NmX1Y4blRacTZhUmF5QWgxOWNv"
+        url: "https://content.presspage.com/uploads/1794/1920_aquariumexterior-3.jpg?45363"
        ,preview: "true",
       },
       {
@@ -43,7 +43,7 @@ module.exports = {
       },
       {
         spotId: 7,
-        url: "https://www.google.com/imgres?q=buc-ee%27s&imgurl=https%3A%2F%2Fwww.cincinnati.com%2Fgcdn%2Fpresto%2F2023%2F08%2F28%2FPMJS%2F0824ac25-3aef-476b-a883-7594470250c6-Bucees.PNG%3Fcrop%3D860%2C645%2Cx107%2Cy0&imgrefurl=https%3A%2F%2Fwww.cincinnati.com%2Fstory%2Fentertainment%2Fdining%2F2024%2F08%2F27%2Fbuc-ees-popularity-explained%2F73417471007%2F&docid=XvCG2rbTnfbyDM&tbnid=PHxEABNRaBYCOM&vet=12ahUKEwiF2ffL3LiLAxXlSTABHdwUAlsQM3oFCIEBEAA..i&w=860&h=645&hcb=2&ved=2ahUKEwiF2ffL3LiLAxXlSTABHdwUAlsQM3oFCIEBEAA",
+        url: "https://bluebonnet.coop/sites/default/files/styles/focal_point_inpage_images/public/images/inpage/20240610_lhs_WorldsLargestBuc-ees.drone_.png?h=8b17d3df&itok=jbg8shB6",
         preview: "true",
       },
       {
@@ -53,12 +53,12 @@ module.exports = {
       },
       {
         spotId: 9,
-        url: "https://www.google.com/imgres?q=caesars%20superdome&imgurl=https%3A%2F%2Fblog.ticketmaster.com%2Fwp-content%2Fuploads%2Fstep-inside-caesars-superdome.png&imgrefurl=https%3A%2F%2Fblog.ticketmaster.com%2Fstep-inside-caesars-superdome-new-orleans-la%2F&docid=X-MuUq2uas230M&tbnid=t4CNgZIINT6cNM&vet=12ahUKEwjmof2F3biLAxXWTjABHQLLCrIQM3oECBwQAA..i&w=1024&h=576&hcb=2&ved=2ahUKEwjmof2F3biLAxXWTjABHQLLCrIQM3oECBwQAA",
+        url: "https://facilitiesmanagementadvisor.blr.com/app/uploads/sites/8/2025/02/Caesars-Superdome-768x512.png",
         preview: "true",
       },
       {
         spotId: 10,
-        url: "https://www.google.com/imgres?q=audubon%20zoo&imgurl=https%3A%2F%2Fwww.tclf.org%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Ffull_width%2Fpublic%2Fthumbnails%2Fimage%2FAudubonZoo_feature_2016_KyleJacobson-PeterSummerlin_004.jpg%3Fitok%3DMkfVffQu&imgrefurl=https%3A%2F%2Fwww.tclf.org%2Flandscapes%2Faudubon-zoo&docid=fdKdZAVLZkaCuM&tbnid=32wXIfK_Qr15TM&vet=12ahUKEwj2hq-b3biLAxVyjLAFHQtGC58QM3oECGQQAA..i&w=1200&h=675&hcb=2&ved=2ahUKEwj2hq-b3biLAxVyjLAFHQtGC58QM3oECGQQAA",
+        url: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/6f/a2/5b/photo2jpg.jpg?w=900&h=500&s=1",
         preview: "true",
       },
 

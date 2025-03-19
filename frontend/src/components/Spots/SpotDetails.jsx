@@ -9,7 +9,7 @@ function SpotDetails() {
     const {id} = useParams();
     const spot = useSelector(state => state.spotsReducer.details?.Spot)
     useEffect(() => {
-        if(!spot){
+        if(!spot || spot.id !== Number(id)){
          dispatch(spotDetails(id));
         }
     });
@@ -23,9 +23,9 @@ return spot &&
     <div className='CityStateCountry'>   
         {spot.city}, {spot.state}, {spot.country}
     </div>
-    <div className="PreviewImage">
-      {spot.previewImage}
-    </div>
+    <img className="PreviewImage" src={spot.previewImage}>
+      
+    </img>
     <div className='Host'>
         Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
     </div>
@@ -33,7 +33,7 @@ return spot &&
         {spot.description}
     </div>
     <div className='Reviews'>
-        {spot.avgRating}
+        {spot.avgRating} Star Rating
     </div>
     
 </div>)
