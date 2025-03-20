@@ -24,12 +24,12 @@ const userSpotDetails = (spots)=> {
         payload: spots
     }
 }
-// const create = (spots)=> {
-//     return {
-//         type: CREATE_SPOT ,
-//         payload: spots
-//     }
-// }
+const create = (spot)=> {
+    return {
+        type: CREATE_SPOT ,
+        payload: spot
+    }
+}
  // =========== GET ALL SPOTS THUNK==================
 export const allSpots = () => async (dispatch) => {
     const response = await csrfFetch("/api/spots");
@@ -55,11 +55,12 @@ export const spotDetailsByUser = () => async (dispatch) => {
 
 
 //=========== CREATE A SPOT THUNK=====================
-// export const createSpot = () => async (dispatch) => {
-//     const response = await csrfFetch("/api/spots");
-    
-//     return data;
-// }
+export const createSpot = (payload) => async (dispatch) => {
+    const response = await csrfFetch("/api/spots", {method:"POST",body: JSON.stringify(payload)});
+    const data = await response.json();
+    dispatch(create(data))
+    return data;
+}
 
 
 
@@ -86,7 +87,7 @@ const spotsReducer = (state = initialState, action) => {
         case USER_SPOT_DETAILS:
             return {...state, userSpotDetails: action.payload};
         case CREATE_SPOT:
-            return{}       
+            return{...state, createSpot: action.payload};       
         default: 
             return state;   
     }
