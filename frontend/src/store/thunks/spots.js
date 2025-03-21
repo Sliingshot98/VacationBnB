@@ -76,18 +76,26 @@ export const createSpot = (payload) => async (dispatch) => {
 
 //=============REDUCER===============================
 
-const initialState = { spots:null};
+const initialState = { spots:null };
 
 const spotsReducer = (state = initialState, action) => {
     switch(action.type){
         case ALL_SPOTS:
-            return {...state, spots: action.payload};
+           { const newState = {...state}
+           newState.spots = {}
+            action.payload.forEach(function(element){
+                newState.spots[element.id] = element
+            }) 
+            return newState}
         case SPOT_DETAILS:
             return {...state, details: action.payload};  
         case USER_SPOT_DETAILS:
             return {...state, userSpotDetails: action.payload};
         case CREATE_SPOT:
-            return{...state, createSpot: action.payload};       
+            {
+            const idx = state.spots[action.payload.id]
+            return{...state, spots: {...state.spots}, [idx]:action.payload}; 
+        }      
         default: 
             return state;   
     }

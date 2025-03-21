@@ -60,7 +60,7 @@ module.exports = {
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       },
       avgRating: {
-       
+        allowNull: true,
         type: Sequelize.DECIMAL
       },
       previewImage: {

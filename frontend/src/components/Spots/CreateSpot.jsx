@@ -2,13 +2,16 @@ import { useDispatch, useSelector } from "react-redux";
 import "./CreateSpot.css";
 import { useEffect } from "react";
 import { createSpot } from "../../store/thunks/spots";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"
+
 
 function CreateSpot() {
+  const sessionUser = useSelector(state => state.session.user);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [country, setCountry] = useState("");
-  const [streetAdress, setStreetAdress] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [latitude, setLatitude] = useState("");
@@ -16,16 +19,112 @@ function CreateSpot() {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
-  const [images, setImages] = useState("");
+  const [previewImage, setImage1] = useState("");
+  const [image2, setImage2] = useState("");
+  const [image3, setImage3] = useState("");
+  const [image4, setImage4] = useState("");
+  const [image5, setImage5] = useState("");
   const [errors, setErrors] = useState({});
 
-const submit = function(){
-    if(Object.values(errors).length){
-        return
-    }else dispatch(createSpot())
 
+  useEffect(function(){
+    if(!sessionUser){
+      navigate("/")
+    }
+  })
+  const handleErrors = function () {
+    const errors = {};
+    if (!country) {
+      errors.country = "Country is required";
+    }
+    if (!streetAddress) {
+      errors.streetAddress = "Address is required";
+    }
+    if (!city) {
+      errors.city = "City is required";
+    }
+    if (!state) {
+      errors.state = "State is required";
+    }
+    if (!latitude) {
+      errors.latitude = "Latitude is required";
+    }
+    if (!longitude) {
+      errors.longitude = "Longitude is required";
+    }
+    if (description.length < 30) {
+      errors.description = "Description needs a minimum of 30 characters";
+    }
+    if (!title) {
+      errors.title = "Name is required";
+    }
+    if (!price) {
+      errors.price = "Price is required";
+    }
+    if (!previewImage) {
+      errors.previewImage = "Preview image is required";
+    }
+    if (
+      image2.length > 0 &&
+      !image2.endsWith(".png") &&
+      !image2.endsWith(".jpg") &&
+      !image2.endsWith(".jpeg")
+    ) {
+      errors.image2 = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+    if (
+      image3.length > 0 &&
+      !image3.endsWith(".png") &&
+      !image3.endsWith(".jpg") &&
+      !image3.endsWith(".jpeg")
+    ) {
+      errors.image3 = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+    if (
+      image4.length > 0 &&
+      !image4.endsWith(".png") &&
+      !image4.endsWith(".jpg") &&
+      !image4.endsWith(".jpeg")
+    ) {
+      errors.image4 = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+    if (
+      image5.length > 0 &&
+      !image5.endsWith(".png") &&
+      !image5.endsWith(".jpg") &&
+      !image5.endsWith(".jpeg")
+    ) {
+      errors.image5 = "Image URL must end in .png, .jpg, or .jpeg";
+    }
+    setErrors(errors)
+    return
+  };
 
-}
+  const submit = async function (event) {
+    event.preventDefault()
+    handleErrors()
+    if (Object.values(errors).length) {
+      return;
+    } else {
+      const payload = {
+        ownerId: sessionUser.id,
+        address: streetAddress,
+        city,
+        state,
+        country,
+        lat: latitude,
+        lng: longitude,
+        name: title,
+        description,
+        price,
+        previewImage
+      }
+      const varName = await dispatch(createSpot(payload))
+      setErrors({})
+      navigate(`/spots/${varName.id}`)
+    }
+    
+  };
   return (
     <form>
       <h1>Create a new Spot</h1>
@@ -37,36 +136,73 @@ const submit = function(){
         <div className="country">
           <label>
             Country
-            <input type="text" />
+            <input
+              type="text"
+              value={country}
+              onChange={(event) => {
+                setCountry(event.target.value);
+              }}
+            />
           </label>
         </div>
         <div className="street-address">
           <label>
             Street Address
-            <input type="text" />
+            <input
+              type="text"
+              value={streetAddress}
+              onChange={(event) => {
+                setStreetAddress(event.target.value);
+              }}
+            />
           </label>
         </div>
         <div className="city">
           <label>
             City
-            <input type="text" />
+            <input
+              type="text"
+              value={city}
+              onChange={(event) => {
+                setCity(event.target.value);
+              }}
+            />
           </label>
         </div>
         <div className="state">
           <label>
-            State <input type="text" />
+            State{" "}
+            <input
+              type="text"
+              value={state}
+              onChange={(event) => {
+                setState(event.target.value);
+              }}
+            />
           </label>
         </div>
         <div className="latitude">
           <label>
             Latitude
-            <input type="text" />
+            <input
+              type="text"
+              value={latitude}
+              onChange={(event) => {
+                setLatitude(event.target.value);
+              }}
+            />
           </label>
         </div>
         <div className="longitude">
           <label>
             Longitude
-            <input type="text" />
+            <input
+              type="text"
+              value={longitude}
+              onChange={(event) => {
+                setLongitude(event.target.value);
+              }}
+            />
           </label>
         </div>
       </div>
@@ -79,17 +215,34 @@ const submit = function(){
         <div className="description-box">
           <label>
             Please write at least 30 characters
-            <input type="text"/>
+            <input
+              type="text"
+              value={description}
+              onChange={(event) => {
+                setDescription(event.target.value);
+              }}
+            />
           </label>
         </div>
       </div>
       <div className="title">
         <h3>Create a title for your spot</h3>
         <p>
-          Catch guests' attention with a spot title that highlights what makes
-          your place special
+          Catch guests&apos; attention with a spot title that highlights what
+          makes your place special
         </p>
-        <div className="title-box"><label>Name of your spot<input type="text"></input></label></div>
+        <div className="title-box">
+          <label>
+            Name of your spot
+            <input
+              type="text"
+              value={title}
+              onChange={(event) => {
+                setTitle(event.target.value);
+              }}
+            ></input>
+          </label>
+        </div>
       </div>
       <div className="price">
         <h4>Set a base price for your spot</h4>
@@ -97,18 +250,82 @@ const submit = function(){
           Competitive pricing can help your listing stand out and rank higher in
           search results
         </p>
-        <div className="Price-per-night"><label>$ Price per night (USD) <input type ="text"></input></label></div>
+        <div className="Price-per-night">
+          <label>
+            $ Price per night (USD){" "}
+            <input
+              type="text"
+              value={price}
+              onChange={(event) => {
+                setPrice(event.target.value);
+              }}
+            ></input>
+          </label>
+        </div>
       </div>
       <div className="photos">
         <h5>Liven up your spot with photos</h5>
         <p>Submit a link to at least one photo to publish your spot.</p>
-        <div className="url1"> <label>Preview Image Url<input type="text"></input></label></div>
-        <div className="url2"><label> Image Url<input type="text"></input></label></div>
-        <div className="url3"> <label> Image Url<input type="text"></input></label></div>
-        <div className="url4"> <label> Image Url<input type="text"></input></label></div>
-        <div className="url5"> <label> Image Url<input type="text"></input></label></div>
+        <div className="url1">
+          {" "}
+          <label>
+            Preview Image Url
+            <input
+              type="text"
+              value={previewImage}
+              onChange={(event) => setImage1(event.target.value)}
+            ></input>
+          </label>
+        </div>
+        <div className="url2">
+          <label>
+            {" "}
+            Image Url
+            <input
+              type="text"
+              value={image2}
+              onChange={(event) => setImage2(event.target.value)}
+            ></input>
+          </label>
+        </div>
+        <div className="url3">
+          {" "}
+          <label>
+            {" "}
+            Image Url
+            <input
+              type="text"
+              value={image3}
+              onChange={(event) => setImage3(event.target.value)}
+            ></input>
+          </label>
+        </div>
+        <div className="url4">
+          {" "}
+          <label>
+            {" "}
+            Image Url
+            <input
+              type="text"
+              value={image4}
+              onChange={(event) => setImage4(event.target.value)}
+            ></input>
+          </label>
+        </div>
+        <div className="url5">
+          {" "}
+          <label>
+            {" "}
+            Image Url
+            <input
+              type="text"
+              value={image5}
+              onChange={(event) => setImage5(event.target.value)}
+            ></input>
+          </label>
+        </div>
       </div>
-      <button onClick= {submit}>Create Spot</button>
+      <button onClick={submit}>Create Spot</button>
     </form>
   );
 }
