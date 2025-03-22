@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 function SpotDetails() {
     const dispatch = useDispatch();
     const {id} = useParams();
-    const spot = useSelector(state => state.spotsReducer.details?.Spot)
+    const spot = useSelector(state => state.spotsReducer.details)
     useEffect(() => {
         if(!spot || spot.id !== Number(id)){
          dispatch(spotDetails(id));

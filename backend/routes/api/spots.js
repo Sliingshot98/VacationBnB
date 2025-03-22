@@ -80,13 +80,13 @@ const checkBookingConflicts = async (req, res, next) => {
 //Add Query Filters to get all Spots + GET ALL SPOTS
 router.get("/", async (req, res, next) => {
   const { minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
-  let { page = 1, size = 10 } = req.query;
+  let { page, size } = req.query;
   const where = {};
   // Add filters based on query parameters
-  if (page < 1) page = 1;
-  if (page > 10) page = 10;
-  if (size > 20) size = 20;
-  if (size < 10) size = 10;
+  if (page && page < 1) page = 1;
+  if (page && page > 10) page = 10;
+  if (size && size > 20) size = 20;
+  if (size && size < 10) size = 10;
   if (minLat) where.lat = { [Op.gte]: parseFloat(minLat) };
   if (maxLat) where.lat = { ...where.lat, [Op.lte]: parseFloat(maxLat) };
   if (minLng) where.lng = { [Op.gte]: parseFloat(minLng) };
@@ -99,7 +99,7 @@ router.get("/", async (req, res, next) => {
     const spots = await Spot.findAll({
       where,
       limit: size,
-      offset: (page - 1) * size,
+      offset: page && size ? (page - 1) * size: undefined
     });
     return res.json({ Spots: spots });
   } catch (err) {
@@ -145,7 +145,7 @@ router.get("/:spotId", async (req, res, next) => {
 
 // Create a Spot
 router.post("/", requireAuth, async (req, res, next) => {
-  const { address, city, state, country, lat, lng, name, description, price } =
+  const { address, city, state, country, lat, lng, name, description, price, previewImage } =
     req.body;
 
   // Validation Errors
@@ -163,6 +163,7 @@ router.post("/", requireAuth, async (req, res, next) => {
   if (!description) errors.description = "Description is required";
   if (price === undefined || price <= 0)
     errors.price = "Price per day must be a positive number";
+  
 
   // If any errors exist, return a 400 response
   if (Object.keys(errors).length > 0) {
@@ -184,6 +185,7 @@ router.post("/", requireAuth, async (req, res, next) => {
       name,
       description,
       price,
+      previewImage
     });
 
     return res.status(201).json(newSpot);

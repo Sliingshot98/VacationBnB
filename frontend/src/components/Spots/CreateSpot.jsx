@@ -1,15 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./CreateSpot.css";
-import { useEffect } from "react";
-import { createSpot } from "../../store/thunks/spots";
+import { useEffect  } from "react";
+import { createSpot, spotDetails, updateSpot } from "../../store/thunks/spots";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom";
 
 
-function CreateSpot() {
+function SpotForm({isEdit}) {
   const sessionUser = useSelector(state => state.session.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const spot = useSelector(state => state.spotsReducer.details);
   const [country, setCountry] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
@@ -26,7 +29,30 @@ function CreateSpot() {
   const [image5, setImage5] = useState("");
   const [errors, setErrors] = useState({});
 
-
+  useEffect(function(){
+    if(isEdit && !spot ){
+    dispatch(spotDetails(id))
+    
+     }
+  });
+  useEffect(function(){
+    if(isEdit && spot){
+      setCountry(spot.country),
+      setStreetAddress(spot.address)
+      setCity(spot.city),
+      setState(spot.state),
+      setLatitude(spot.lat),
+      setLongitude(spot.lng),
+      setDescription(spot.description),
+      setTitle(spot.name),
+      setPrice(spot.price),
+      setImage1(spot.previewImage),
+      setImage2(spot.image2 ? spot.image2 : ""),
+      setImage3(spot.image3 ? spot.image3 : ""),
+      setImage4(spot.image4 ? spot.image4 : ""),
+      setImage5(spot.image5 ? spot.image5 : "")
+    }
+  }, [spot]);
   useEffect(function(){
     if(!sessionUser){
       navigate("/")
@@ -119,15 +145,21 @@ function CreateSpot() {
         price,
         previewImage
       }
+      if(!isEdit){
       const varName = await dispatch(createSpot(payload))
       setErrors({})
       navigate(`/spots/${varName.id}`)
+      }
+      else {
+        payload.id=id;
+        dispatch(updateSpot())
+      }
     }
     
   };
   return (
     <form>
-      <h1>Create a new Spot</h1>
+      <h1>{isEdit ? "Update your Spot" : "Create a new Spot" }</h1>
       <p>
         Where is your place located? Please give your exact address so guests
         know where to go.
@@ -330,4 +362,4 @@ function CreateSpot() {
   );
 }
 
-export default CreateSpot;
+export default SpotForm;

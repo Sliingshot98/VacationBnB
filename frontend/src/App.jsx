@@ -5,7 +5,8 @@ import Navigation from './components/Navigation';
 import * as sessionActions from './store/session';
 import AllSpots from './components/Spots';
 import SpotDetails from './components/Spots/SpotDetails';
-import CreateSpot from './components/Spots/CreateSpot';
+import SpotForm from './components/Spots/CreateSpot';
+import DeleteSpotButton from './components/Spots/DeleteSpot';
 
 
 
@@ -41,8 +42,15 @@ const router = createBrowserRouter([
       },
       {
         path:"/spots/new",
-        element: <CreateSpot />
-        
+        element: <SpotForm isEdit= {false} />
+      },
+      {
+        path:"/spots/:id/edit",
+        element: <SpotForm isEdit = {true} />
+      },
+      {
+       path:"/spots/current",
+       element: <DeleteSpotButton />
       }
     ]
   }

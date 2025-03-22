@@ -16,13 +16,13 @@ useEffect(function(){
     if(!spotsArray.length){
         dispatch(allSpots())
     }
-})
-console.log(spots)
+}, [spotsArray.length, dispatch])
+
 return (
     <div className='main-content'>
         {spotsArray?.map((ele,idx)=> (     
         <div key={`${idx}`} className="spots-card" onClick={function(){navigateTo(`/spots/${ele.id}`)}}>
-              {console.log(ele)}
+              
             <img className="spot-image" src ={ele.previewImage}>                   
             </img>
             <div className="location-starrating">
