@@ -1,15 +1,13 @@
 import { useDispatch } from "react-redux";
 import { deleteSpot } from "../../store/thunks/spots"; 
 
-const DeleteSpotButton = ({ spotId, onDelete }) => {
+const DeleteButton = ({ spotId, onDelete }) => {
     const dispatch = useDispatch();
 
-    const handleDelete = async () => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this spot?");
-        if (confirmDelete) {
-            await dispatch(deleteSpot({ id: spotId }));
-            if (onDelete) onDelete(); 
-        }
+    const handleDelete = async (event) => {
+            event.stopPropagation();
+            await dispatch(deleteSpot(spotId));
+        
     };
 
     return (
@@ -19,4 +17,4 @@ const DeleteSpotButton = ({ spotId, onDelete }) => {
     );
 };
 
-export default DeleteSpotButton;
+export default DeleteButton;

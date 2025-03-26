@@ -4,9 +4,8 @@ const ALL_SPOTS = "spots/getAllSpots";
 const SPOT_DETAILS = "spots/getSpotDeatils";
 const USER_SPOT_DETAILS = "spots/getUserSpotDetails";
 const CREATE_SPOT = "spots/postCreateSpot";
-const UPDATE_SPOT = "spots/putUpdateSpot"
-const DELETE_SPOT = "spots/deleteDeleteSpot"
-
+const UPDATE_SPOT = "spots/putUpdateSpot";
+const DELETE_SPOT = "spots/deleteDeleteSpot";
 
 const spots = (spots) => {
   return {
@@ -33,22 +32,22 @@ const create = (spot) => {
   };
 };
 const update = (payload) => {
-    return {
-        type: UPDATE_SPOT,
-        payload
-    };
+  return {
+    type: UPDATE_SPOT,
+    payload,
+  };
 };
 const deleteTheSpot = (payload) => {
-    return {
-        type: DELETE_SPOT,
-        payload
-    };
+  return {
+    type: DELETE_SPOT,
+    payload,
+  };
 };
 // =========== GET ALL SPOTS THUNK==================
 export const allSpots = () => async (dispatch) => {
   const response = await csrfFetch("/api/spots");
   const data = await response.json();
-  console.log(data.Spots)
+  console.log(data.Spots);
   dispatch(spots(data.Spots));
   return data;
 };
@@ -81,27 +80,24 @@ export const createSpot = (payload) => async (dispatch) => {
 
 //============ EDIT A SPOT THUNK=====================
 export const updateSpot = (payload) => async (dispatch) => {
-    const response = await csrfFetch(`api/spots/${payload.id}`, {
-        method: "PUT",
-        body: JSON.stringify(payload),
-    });
-    const data = await response.json();
-    dispatch(update(data));
-    return data
-    
-}
+  const response = await csrfFetch(`/api/spots/${payload.id}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+  const data = await response.json();
+  dispatch(update(data));
+  return data;
+};
 
 //==============DELETE A SPOT THUNK==================
 export const deleteSpot = (payload) => async (dispatch) => {
-    const response = await csrfFetch(`api/spots/${payload.id}`, {
-        method: "DELETE",
-        body: JSON.stringify(payload)
-    });
-    const data = await response.json();
-    dispatch(deleteTheSpot(data));
-    return data
-}
-
+  const response = await csrfFetch(`/api/spots/${payload}`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  dispatch(deleteTheSpot(data));
+  return data;
+};
 
 //=============REDUCER===============================
 
@@ -127,9 +123,17 @@ const spotsReducer = (state = initialState, action) => {
         spots: { ...state.spots, [action.payload.id]: action.payload },
       };
     case UPDATE_SPOT:
-        return{...state, spots: {...state.spots, [action.payload.id]: action.payload }};
-    case DELETE_SPOT:
-        return{...state, spots: {...state.spots, [action.payload.id]: action.payload}} ;
+      return {
+        ...state,
+        details: action.payload ,
+        spots: { ...state.spots, [action.payload.id]: action.payload },
+      };
+    case DELETE_SPOT: {
+      const newState = { ...state };
+      console.log(newState.spots[action.payload.id])
+      delete newState.spots[action.payload.id];
+      return newState;
+    }
     default:
       return state;
   }

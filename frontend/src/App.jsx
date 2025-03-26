@@ -6,7 +6,6 @@ import * as sessionActions from './store/session';
 import AllSpots from './components/Spots';
 import SpotDetails from './components/Spots/SpotDetails';
 import SpotForm from './components/Spots/CreateSpot';
-import DeleteSpotButton from './components/Spots/DeleteSpot';
 
 
 
@@ -50,8 +49,9 @@ const router = createBrowserRouter([
       },
       {
        path:"/spots/current",
-       element: <DeleteSpotButton />
-      }
+       element: <AllSpots />
+      },
+      
     ]
   }
 ]);

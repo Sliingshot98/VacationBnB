@@ -53,11 +53,13 @@ function SpotForm({isEdit}) {
       setImage5(spot.image5 ? spot.image5 : "")
     }
   }, [spot]);
-  useEffect(function(){
-    if(!sessionUser){
-      navigate("/")
-    }
-  })
+
+  // useEffect(function(){
+  //   if(!sessionUser || sessionUser.id !== spot?.ownerId){
+  //     navigate("/")
+  //   }
+  // }, [sessionUser, spot])
+  
   const handleErrors = function () {
     const errors = {};
     if (!country) {
@@ -152,7 +154,8 @@ function SpotForm({isEdit}) {
       }
       else {
         payload.id=id;
-        dispatch(updateSpot())
+        const varName = await dispatch(updateSpot(payload))
+        navigate(`/spots/${varName.id}`)
       }
     }
     
@@ -167,7 +170,7 @@ function SpotForm({isEdit}) {
       <div className="spot-location">
         <div className="country">
           <label>
-            Country
+            Country {errors.country && <p className="errors">{errors.country}</p>}
             <input
               type="text"
               value={country}
@@ -179,7 +182,7 @@ function SpotForm({isEdit}) {
         </div>
         <div className="street-address">
           <label>
-            Street Address
+            Street Address {errors.streetAddress && <p className="errors">{errors.streetAddress}</p>}
             <input
               type="text"
               value={streetAddress}
@@ -191,7 +194,7 @@ function SpotForm({isEdit}) {
         </div>
         <div className="city">
           <label>
-            City
+            City {errors.city && <p className="errors">{errors.city}</p>}
             <input
               type="text"
               value={city}
@@ -203,7 +206,7 @@ function SpotForm({isEdit}) {
         </div>
         <div className="state">
           <label>
-            State{" "}
+            State{" "} {errors.state && <p className="errors">{errors.state}</p>}
             <input
               type="text"
               value={state}
@@ -215,7 +218,7 @@ function SpotForm({isEdit}) {
         </div>
         <div className="latitude">
           <label>
-            Latitude
+            Latitude {errors.latitude && <p className="errors"> {errors.latitude}</p>}
             <input
               type="text"
               value={latitude}
@@ -227,7 +230,7 @@ function SpotForm({isEdit}) {
         </div>
         <div className="longitude">
           <label>
-            Longitude
+            Longitude {errors.longitude && <p className="errors">{errors.longitude}</p>}
             <input
               type="text"
               value={longitude}
@@ -246,7 +249,7 @@ function SpotForm({isEdit}) {
         </p>
         <div className="description-box">
           <label>
-            Please write at least 30 characters
+            Please write at least 30 characters {errors.description && <p className="errors">{errors.description}</p>}
             <input
               type="text"
               value={description}
@@ -265,7 +268,7 @@ function SpotForm({isEdit}) {
         </p>
         <div className="title-box">
           <label>
-            Name of your spot
+            Name of your spot {errors.title && <p className="errors">{errors.title}</p>}
             <input
               type="text"
               value={title}
@@ -284,7 +287,7 @@ function SpotForm({isEdit}) {
         </p>
         <div className="Price-per-night">
           <label>
-            $ Price per night (USD){" "}
+            $ Price per night (USD){" "} {errors.price && <p className="errors">{errors.price}</p>}
             <input
               type="text"
               value={price}
@@ -301,7 +304,7 @@ function SpotForm({isEdit}) {
         <div className="url1">
           {" "}
           <label>
-            Preview Image Url
+            Preview Image Url {errors.previewImage && <p className="errors"> {errors.previewImage}</p>}
             <input
               type="text"
               value={previewImage}
@@ -312,7 +315,7 @@ function SpotForm({isEdit}) {
         <div className="url2">
           <label>
             {" "}
-            Image Url
+            Image Url {errors.image2 && <p className="errors">{errors.image2}</p>}
             <input
               type="text"
               value={image2}
@@ -324,7 +327,7 @@ function SpotForm({isEdit}) {
           {" "}
           <label>
             {" "}
-            Image Url
+            Image Url{errors.image3 && <p className="errors">{errors.image3}</p>}
             <input
               type="text"
               value={image3}
@@ -336,7 +339,7 @@ function SpotForm({isEdit}) {
           {" "}
           <label>
             {" "}
-            Image Url
+            Image Url {errors.image4 && <p className="errors">{errors.image4}</p>}
             <input
               type="text"
               value={image4}
@@ -348,7 +351,7 @@ function SpotForm({isEdit}) {
           {" "}
           <label>
             {" "}
-            Image Url
+            Image Url {errors.image5 && <p className="errors">{errors.image5}</p>}
             <input
               type="text"
               value={image5}

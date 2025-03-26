@@ -7,7 +7,7 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import "./ProfileButton.css";
 import { Link } from 'react-router-dom';
-import DeleteSpotButton from '../Spots/DeleteSpot';
+
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
