@@ -15,7 +15,7 @@ const DeleteButton = ({ spotId }) => {
 
     return (
         <>
-        <OpenModal buttonText="Delete Spot" onButtonClick={handleDelete} modalComponent={<DeleteConfirmation/>}></OpenModal>
+        <OpenModal buttonText="Delete Spot" onButtonClick={handleDelete} modalComponent={<DeleteConfirmation spotId={spotId}/>}></OpenModal>
         </>
     );
 };

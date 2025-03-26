@@ -3,6 +3,12 @@ import './SpotDetails.css';
 import { useEffect} from 'react';
 import { spotDetails } from '../../store/thunks/spots';
 import { useParams } from 'react-router-dom';
+import GetReviews from '../Reviews/AllReviews';
+import OpenModal from '../Navigation/OpenModalMenuItem';
+import ReviewForm from '../Reviews/CreateReview';
+
+
+
 
 function SpotDetails() {
     const dispatch = useDispatch();
@@ -14,6 +20,7 @@ function SpotDetails() {
         }
     });
     console.log(spot)
+    
 return spot &&
 (<div className= 'Entire-detail'>
 
@@ -34,6 +41,10 @@ return spot &&
     </div>
     <div className='Reviews'>
         {spot.avgRating} Star Rating
+    </div>
+    <div className="ReviewText">
+        <OpenModal modalComponent = {<ReviewForm isEdit={false}/>} buttonText = "Post Your Review" ></OpenModal>
+        {<GetReviews></GetReviews>}
     </div>
     
 </div>)

@@ -245,7 +245,7 @@ function SpotForm({isEdit}) {
         <div className="description-box">
           <label>
             Please write at least 30 characters {errors.description && <p className="errors">{errors.description}</p>}
-            <input
+            <textarea
               type="text"
               value={description}
               onChange={(event) => {
