@@ -64,7 +64,6 @@ module.exports = {
         type: Sequelize.DECIMAL
       },
       previewImage: {
-        
         type: Sequelize.TEXT
       }
     },options);

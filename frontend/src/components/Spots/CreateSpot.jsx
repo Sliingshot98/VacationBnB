@@ -52,13 +52,8 @@ function SpotForm({isEdit}) {
       setImage4(spot.image4 ? spot.image4 : ""),
       setImage5(spot.image5 ? spot.image5 : "")
     }
-  }, [spot]);
+  },[isEdit, spot]);
 
-  // useEffect(function(){
-  //   if(!sessionUser || sessionUser.id !== spot?.ownerId){
-  //     navigate("/")
-  //   }
-  // }, [sessionUser, spot])
   
   const handleErrors = function () {
     const errors = {};
