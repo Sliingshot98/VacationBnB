@@ -1,8 +1,8 @@
 import { csrfFetch } from "../csrf";
 
 const ALL_REVIEWS = "spots/getAllReviews";
-const SPOT_REVIEWS = "spots/getSpotReviews";
-const USER_SPOT_REVIEWS = "reviews/getUserSpotReview";
+// const SPOT_REVIEWS = "spots/getSpotReviews";
+// const USER_SPOT_REVIEWS = "reviews/getUserSpotReview";
 const CREATE_REVIEW = "reviews/postCreateReview";
 const UPDATE_REVIEW = "reviews/putUpdateReview";
 const DELETE_REVIEW = "reviews/deleteDeleteREview";
@@ -13,12 +13,12 @@ const reviews = (reviews) => {
       payload: reviews,
     };
   };
-  const details = (reviews) => {
-    return {
-      type: SPOT_REVIEWS,
-      payload: reviews,
-    };
-  };
+  // const details = (reviews) => {
+  //   return {
+  //     type: SPOT_REVIEWS,
+  //     payload: reviews,
+  //   };
+  // };
   // const userSpotReviews = (reviews) => {
   //   return {
   //     type: USER_SPOT_REVIEWS,
@@ -44,7 +44,7 @@ const reviews = (reviews) => {
     };
   };
 // //================GET ALL REVIEWS++++++++++++++++
-export const allReviews = (spotId) => async (dispatch) => {
+export const allReviewsBySpotId= (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
   const data = await response.json();
   dispatch(reviews(data.Reviews));
@@ -52,13 +52,13 @@ export const allReviews = (spotId) => async (dispatch) => {
 };
 
 // //=================Detail by user=================
-export const spotReviewsByUser = () => async (dispatch) => {
-  const response = await csrfFetch("/api/reviews/current");
-  const data = await response.json();
-  console.log(data)
-  dispatch(details(data.Reviews));
-  return data;
-};
+// export const spotReviewsByUser = () => async (dispatch) => {
+//   const response = await csrfFetch("/api/reviews/current");
+//   const data = await response.json();
+//   console.log(data)
+//   dispatch(details(data.Reviews));
+//   return data;
+// };
 
 
 // //==================Create Review++++++++++++++++++++++
@@ -110,10 +110,10 @@ const reviewsReducer = (state = initialState, action) => {
       });
       return newState;
     }
-    case SPOT_REVIEWS:
-      return { ...state, details: {...action.payload} };
-    case USER_SPOT_REVIEWS:
-      return { ...state, userSpotReviews: action.payload };
+    // case SPOT_REVIEWS:
+    //   return { ...state, details: {...action.payload} };
+    // case USER_SPOT_REVIEWS:
+    //   return { ...state, userSpotReviews: action.payload };
     case CREATE_REVIEW:
       return {
         ...state,
@@ -122,13 +122,12 @@ const reviewsReducer = (state = initialState, action) => {
     case UPDATE_REVIEW:
       return {
         ...state,
-        details: action.payload ,
         reviews: { ...state.reviews, [action.payload.id]: action.payload },
       };
     case DELETE_REVIEW: {
       const newState = { ...state };
-      newState.details = {...state.details}
-      delete newState.details[action.payload.id];
+      newState.reviews= {...state.reviews}
+      delete newState.reviews[action.payload.id];
       return newState;
     }
     default:

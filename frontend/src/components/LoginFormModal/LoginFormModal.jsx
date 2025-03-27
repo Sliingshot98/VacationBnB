@@ -25,7 +25,14 @@ function LoginFormModal() {
         }
       });
   };
-
+  const signInAsDemo = function(){
+    const payload = {
+      credential: "Demo-lition",
+      password: "password"
+    }
+    dispatch(sessionActions.login(payload))
+    closeModal()
+  }
   return (
     <>
       <h1>Log In</h1>
@@ -48,11 +55,13 @@ function LoginFormModal() {
             required
           />
         </label>
+        
         {errors.credential && (
           <p className='errors'>{errors.credential}</p>
         )}
         <button type="submit">Log In</button>
       </form>
+      <a onClick={signInAsDemo}>Sign in as a Demo User</a>
     </>
   );
 }
