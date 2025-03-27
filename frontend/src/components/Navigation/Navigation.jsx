@@ -22,9 +22,11 @@ function Navigation({ isLoaded }) {
         <NavLink className= "home" to="/">
         <img src={icon} alt="Home" style={{ width: '100px', height: '100px' }} />
         </NavLink>
-        {sessionUser && <NavLink className= "spotFormLink" to="/spots/new">
-        Create A New Spot
-        </NavLink>}
+        <div className='create-a-spot'>
+          {sessionUser && <NavLink className= "spotFormLink" to="/spots/new">
+          Create A New Spot
+          </NavLink>}
+        </div>
       </li>
       {isLoaded && (
         <li className="profileButtonInNavigation">

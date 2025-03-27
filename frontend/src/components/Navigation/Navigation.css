@@ -7,3 +7,21 @@
     flex-direction: column;
     
 }
+.create-a-spot{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 1500px;
+}
+.spotFormLink {
+    font-size: 25px;
+    color: #da0707;
+    text-decoration: none;
+    margin-left: 10px;
+  }
+  
+  .spotFormLink:hover {
+    text-decoration: underline;
+  }
+  
+  

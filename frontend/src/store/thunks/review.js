@@ -19,12 +19,12 @@ const reviews = (reviews) => {
       payload: reviews,
     };
   };
-  const userSpotReviews = (reviews) => {
-    return {
-      type: USER_SPOT_REVIEWS,
-      payload: reviews,
-    };
-  };
+  // const userSpotReviews = (reviews) => {
+  //   return {
+  //     type: USER_SPOT_REVIEWS,
+  //     payload: reviews,
+  //   };
+  // };
   const create = (review) => {
     return {
       type: CREATE_REVIEW,
@@ -47,7 +47,6 @@ const reviews = (reviews) => {
 export const allReviews = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
   const data = await response.json();
-  console.log(data.Reviews);
   dispatch(reviews(data.Reviews));
   return data;
 };
@@ -56,14 +55,15 @@ export const allReviews = (spotId) => async (dispatch) => {
 export const spotReviewsByUser = () => async (dispatch) => {
   const response = await csrfFetch("/api/reviews/current");
   const data = await response.json();
-  dispatch(userSpotReviews(data.Reviews));
+  console.log(data)
+  dispatch(details(data.Reviews));
   return data;
 };
 
 
 // //==================Create Review++++++++++++++++++++++
 export const createReview = (payload) => async (dispatch) => {
-  const response = await csrfFetch("/api/reviews", {
+  const response = await csrfFetch(`/api/spots/${payload.id}/reviews`, {
     method: "POST",
     body: JSON.stringify(payload),
   });
@@ -91,6 +91,7 @@ export const deleteReview = (payload) => async (dispatch) => {
     method: "DELETE",
   });
   const data = await response.json();
+  console.log('this is the data', data)
   dispatch(deleteTheReview(data));
   return data;
 };
@@ -110,7 +111,7 @@ const reviewsReducer = (state = initialState, action) => {
       return newState;
     }
     case SPOT_REVIEWS:
-      return { ...state, details: action.payload };
+      return { ...state, details: {...action.payload} };
     case USER_SPOT_REVIEWS:
       return { ...state, userSpotReviews: action.payload };
     case CREATE_REVIEW:
@@ -126,7 +127,8 @@ const reviewsReducer = (state = initialState, action) => {
       };
     case DELETE_REVIEW: {
       const newState = { ...state };
-      delete newState.reviews[action.payload.id];
+      newState.details = {...state.details}
+      delete newState.details[action.payload.id];
       return newState;
     }
     default:

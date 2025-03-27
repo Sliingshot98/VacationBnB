@@ -156,9 +156,9 @@ function SpotForm({isEdit}) {
     
   };
   return (
-    <form>
-      <h1>{isEdit ? "Update your Spot" : "Create a new Spot" }</h1>
-      <p>
+    <form className="form">
+      <h1 className="header">{isEdit ? "Update your Spot" : "Create a new Spot" }</h1>
+      <p className ="location-statement">
         Where is your place located? Please give your exact address so guests
         know where to go.
       </p>
@@ -237,8 +237,8 @@ function SpotForm({isEdit}) {
         </div>
       </div>
       <div className="Description">
-        <h2>Describe your place to guests</h2>
-        <p>
+        <h2 className="description-header">Describe your place to guests</h2>
+        <p className="description-message">
           Mention the best features of your space, any special amenities like
           fast wifi or parking, and what you love about the neighborhood.
         </p>
@@ -256,8 +256,8 @@ function SpotForm({isEdit}) {
         </div>
       </div>
       <div className="title">
-        <h3>Create a title for your spot</h3>
-        <p>
+        <h3 className="title-header">Create a title for your spot</h3>
+        <p className="title-message">
           Catch guests&apos; attention with a spot title that highlights what
           makes your place special
         </p>
@@ -355,7 +355,7 @@ function SpotForm({isEdit}) {
           </label>
         </div>
       </div>
-      <button onClick={submit}>Create Spot</button>
+      <button className="submit-button" onClick={submit}>Create Spot</button>
     </form>
   );
 }

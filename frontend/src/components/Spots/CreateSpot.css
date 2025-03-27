@@ -1,3 +1,18 @@
 .errors {
     color: red
 }
+.form{
+    text-align: center;
+}
+.submit-button{
+    background-color: darkblue;
+    color: white;
+    font-size: 18px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor:pointer;
+}
+.submit-button:hover {
+    background-color: rgb(80, 16, 16); 
+}

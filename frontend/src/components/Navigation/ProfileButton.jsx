@@ -56,7 +56,8 @@ function ProfileButton({ user }) {
       >
         <FaUserCircle />
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+        <div className='profile-square'>
+       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
             <li>{user.username}</li>
@@ -64,12 +65,12 @@ function ProfileButton({ user }) {
             <li>{user.email}</li>
             <li>
             <Link to="/spots/current">
-              <button>Manage Spots</button>
+              <button className='manage-button'>Manage Spots</button>
             </Link>
             
           </li>
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button className='logout' onClick={logout}>Log Out</button>
             </li>
           </>
         ) : (
@@ -86,7 +87,8 @@ function ProfileButton({ user }) {
             />
           </>
         )}
-      </ul>
+        </ul>
+      </div>
     </>
   );
 }

@@ -130,6 +130,8 @@ router.get("/:spotId", async (req, res, next) => {
   try {
     const spot = await Spot.findByPk(spotId, {
       include: [
+
+        {model: Review, include:[User]},
         SpotImage,
         { model: User.scope("defaultScope", "owner"), as: "Owner" },
       ],
