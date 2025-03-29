@@ -1,18 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./CreateSpot.css";
-import { useEffect  } from "react";
+import { useEffect } from "react";
 import { createSpot, spotDetails, updateSpot } from "../../store/thunks/spots";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
-
-function SpotForm({isEdit}) {
-  const sessionUser = useSelector(state => state.session.user);
+function SpotForm({ isEdit }) {
+  const sessionUser = useSelector((state) => state.session.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-  const spot = useSelector(state => state.spotsReducer.details);
+  const spot = useSelector((state) => state.spotsReducer.details);
   const [country, setCountry] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
@@ -23,38 +22,45 @@ function SpotForm({isEdit}) {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
   const [previewImage, setImage1] = useState("");
-  const [image2, setImage2] = useState("");
-  const [image3, setImage3] = useState("");
-  const [image4, setImage4] = useState("");
-  const [image5, setImage5] = useState("");
+  const [imageData, setImageData] = useState({
+    1: { image2: "" },
+    2: { image3: "" },
+    3: { image4: "" },
+    4: { image5: "" },
+  });
   const [errors, setErrors] = useState({});
 
-  useEffect(function(){
-    if(isEdit && !spot ){
-    dispatch(spotDetails(id))
-    
-     }
-  });
-  useEffect(function(){
-    if(isEdit && spot){
-      setCountry(spot.country),
-      setStreetAddress(spot.address)
-      setCity(spot.city),
-      setState(spot.state),
-      setLatitude(spot.lat),
-      setLongitude(spot.lng),
-      setDescription(spot.description),
-      setTitle(spot.name),
-      setPrice(spot.price),
-      setImage1(spot.previewImage),
-      setImage2(spot.image2 ? spot.image2 : ""),
-      setImage3(spot.image3 ? spot.image3 : ""),
-      setImage4(spot.image4 ? spot.image4 : ""),
-      setImage5(spot.image5 ? spot.image5 : "")
-    }
-  },[isEdit, spot]);
+  useEffect(
+    function () {
+      if (isEdit && !spot) {
+        dispatch(spotDetails(id));
+      }
+    },
+    [dispatch, isEdit, spot, id]
+  );
+  useEffect(
+    function () {
+      if (isEdit && spot) {
+        setCountry(spot.country), setStreetAddress(spot.address);
+        setCity(spot.city),
+          setState(spot.state),
+          setLatitude(spot.lat),
+          setLongitude(spot.lng),
+          setDescription(spot.description),
+          setTitle(spot.name),
+          setPrice(spot.price),
+          setImage1(spot.previewImage),
+          setImageData({
+            1: { url: spot.image2 || "" },
+            2: { url: spot.image3 || "" },
+            3: { url: spot.image4 || "" },
+            4: { url: spot.image5 || "" },
+          });
+      }
+    },
+    [isEdit, spot]
+  );
 
-  
   const handleErrors = function () {
     const errors = {};
     if (!country) {
@@ -88,44 +94,44 @@ function SpotForm({isEdit}) {
       errors.previewImage = "Preview image is required";
     }
     if (
-      image2.length > 0 &&
-      !image2.endsWith(".png") &&
-      !image2.endsWith(".jpg") &&
-      !image2.endsWith(".jpeg")
+      imageData[1].url.length > 0 &&
+      !imageData[1].url.endsWith(".png") &&
+      !imageData[1].url.endsWith(".jpg") &&
+      !imageData[1].url.endsWith(".jpeg")
     ) {
       errors.image2 = "Image URL must end in .png, .jpg, or .jpeg";
     }
     if (
-      image3.length > 0 &&
-      !image3.endsWith(".png") &&
-      !image3.endsWith(".jpg") &&
-      !image3.endsWith(".jpeg")
+      imageData[2].url.length > 0 &&
+      !imageData[2].url.endsWith(".png") &&
+      !imageData[2].url.endsWith(".jpg") &&
+      !imageData[2].url.endsWith(".jpeg")
     ) {
       errors.image3 = "Image URL must end in .png, .jpg, or .jpeg";
     }
     if (
-      image4.length > 0 &&
-      !image4.endsWith(".png") &&
-      !image4.endsWith(".jpg") &&
-      !image4.endsWith(".jpeg")
+      imageData[3].url.length > 0 &&
+      !imageData[3].url.endsWith(".png") &&
+      !imageData[3].url.endsWith(".jpg") &&
+      !imageData[3].url.endsWith(".jpeg")
     ) {
       errors.image4 = "Image URL must end in .png, .jpg, or .jpeg";
     }
     if (
-      image5.length > 0 &&
-      !image5.endsWith(".png") &&
-      !image5.endsWith(".jpg") &&
-      !image5.endsWith(".jpeg")
+      imageData[4].url.length > 0 &&
+      !imageData[4].url.endsWith(".png") &&
+      !imageData[4].url.endsWith(".jpg") &&
+      !imageData[4].url.endsWith(".jpeg")
     ) {
       errors.image5 = "Image URL must end in .png, .jpg, or .jpeg";
     }
-    setErrors(errors)
-    return
+    setErrors(errors);
+    return;
   };
 
   const submit = async function (event) {
-    event.preventDefault()
-    handleErrors()
+    event.preventDefault();
+    handleErrors();
     if (Object.values(errors).length) {
       return;
     } else {
@@ -140,32 +146,35 @@ function SpotForm({isEdit}) {
         name: title,
         description,
         price,
-        previewImage
-      }
-      if(!isEdit){
-      const varName = await dispatch(createSpot(payload))
-      setErrors({})
-      navigate(`/spots/${varName.id}`)
-      }
-      else {
-        payload.id=id;
-        const varName = await dispatch(updateSpot(payload))
-        navigate(`/spots/${varName.id}`)
+        previewImage,
+        imageData,
+      };
+      if (!isEdit) {
+        const varName = await dispatch(createSpot(payload));
+        setErrors({});
+        navigate(`/spots/${varName.id}`);
+      } else {
+        payload.id = id;
+        payload.user = sessionUser;
+        const varName = await dispatch(updateSpot(payload));
+        navigate(`/spots/${varName.id}`);
       }
     }
-    
   };
   return (
     <form className="form">
-      <h1 className="header">{isEdit ? "Update your Spot" : "Create a new Spot" }</h1>
-      <p className ="location-statement">
+      <h1 className="header">
+        {isEdit ? "Update your Spot" : "Create a new Spot"}
+      </h1>
+      <p className="location-statement">
         Where is your place located? Please give your exact address so guests
         know where to go.
       </p>
       <div className="spot-location">
         <div className="country">
           <label>
-            Country {errors.country && <p className="errors">{errors.country}</p>}
+            Country{" "}
+            {errors.country && <p className="errors">{errors.country}</p>}
             <input
               type="text"
               value={country}
@@ -177,7 +186,10 @@ function SpotForm({isEdit}) {
         </div>
         <div className="street-address">
           <label>
-            Street Address {errors.streetAddress && <p className="errors">{errors.streetAddress}</p>}
+            Street Address{" "}
+            {errors.streetAddress && (
+              <p className="errors">{errors.streetAddress}</p>
+            )}
             <input
               type="text"
               value={streetAddress}
@@ -201,7 +213,7 @@ function SpotForm({isEdit}) {
         </div>
         <div className="state">
           <label>
-            State{" "} {errors.state && <p className="errors">{errors.state}</p>}
+            State {errors.state && <p className="errors">{errors.state}</p>}
             <input
               type="text"
               value={state}
@@ -213,7 +225,8 @@ function SpotForm({isEdit}) {
         </div>
         <div className="latitude">
           <label>
-            Latitude {errors.latitude && <p className="errors"> {errors.latitude}</p>}
+            Latitude{" "}
+            {errors.latitude && <p className="errors"> {errors.latitude}</p>}
             <input
               type="text"
               value={latitude}
@@ -225,7 +238,8 @@ function SpotForm({isEdit}) {
         </div>
         <div className="longitude">
           <label>
-            Longitude {errors.longitude && <p className="errors">{errors.longitude}</p>}
+            Longitude{" "}
+            {errors.longitude && <p className="errors">{errors.longitude}</p>}
             <input
               type="text"
               value={longitude}
@@ -244,7 +258,10 @@ function SpotForm({isEdit}) {
         </p>
         <div className="description-box">
           <label>
-            Please write at least 30 characters {errors.description && <p className="errors">{errors.description}</p>}
+            Please write at least 30 characters{" "}
+            {errors.description && (
+              <p className="errors">{errors.description}</p>
+            )}
             <textarea
               type="text"
               value={description}
@@ -263,7 +280,8 @@ function SpotForm({isEdit}) {
         </p>
         <div className="title-box">
           <label>
-            Name of your spot {errors.title && <p className="errors">{errors.title}</p>}
+            Name of your spot{" "}
+            {errors.title && <p className="errors">{errors.title}</p>}
             <input
               type="text"
               value={title}
@@ -282,7 +300,8 @@ function SpotForm({isEdit}) {
         </p>
         <div className="Price-per-night">
           <label>
-            $ Price per night (USD){" "} {errors.price && <p className="errors">{errors.price}</p>}
+            $ Price per night (USD){" "}
+            {errors.price && <p className="errors">{errors.price}</p>}
             <input
               type="text"
               value={price}
@@ -299,7 +318,10 @@ function SpotForm({isEdit}) {
         <div className="url1">
           {" "}
           <label>
-            Preview Image Url {errors.previewImage && <p className="errors"> {errors.previewImage}</p>}
+            Preview Image Url{" "}
+            {errors.previewImage && (
+              <p className="errors"> {errors.previewImage}</p>
+            )}
             <input
               type="text"
               value={previewImage}
@@ -310,11 +332,18 @@ function SpotForm({isEdit}) {
         <div className="url2">
           <label>
             {" "}
-            Image Url {errors.image2 && <p className="errors">{errors.image2}</p>}
+            Image Url{" "}
+            {errors.image2 && <p className="errors">{errors.image2}</p>}
             <input
+              name="url"
               type="text"
-              value={image2}
-              onChange={(event) => setImage2(event.target.value)}
+              value={imageData[1].url}
+              onChange={(event) =>
+                setImageData({
+                  ...imageData,
+                  1: { [event.target.name]: event.target.value },
+                })
+              }
             ></input>
           </label>
         </div>
@@ -322,11 +351,18 @@ function SpotForm({isEdit}) {
           {" "}
           <label>
             {" "}
-            Image Url{errors.image3 && <p className="errors">{errors.image3}</p>}
+            Image Url
+            {errors.image3 && <p className="errors">{errors.image3}</p>}
             <input
+              name="url"
               type="text"
-              value={image3}
-              onChange={(event) => setImage3(event.target.value)}
+              value={imageData[2].url}
+              onChange={(event) =>
+                setImageData({
+                  ...imageData,
+                  2: { [event.target.name]: event.target.value },
+                })
+              }
             ></input>
           </label>
         </div>
@@ -334,11 +370,18 @@ function SpotForm({isEdit}) {
           {" "}
           <label>
             {" "}
-            Image Url {errors.image4 && <p className="errors">{errors.image4}</p>}
+            Image Url{" "}
+            {errors.image4 && <p className="errors">{errors.image4}</p>}
             <input
+              name="url"
               type="text"
-              value={image4}
-              onChange={(event) => setImage4(event.target.value)}
+              value={imageData[3].url}
+              onChange={(event) =>
+                setImageData({
+                  ...imageData,
+                  3: { [event.target.name]: event.target.value },
+                })
+              }
             ></input>
           </label>
         </div>
@@ -346,16 +389,25 @@ function SpotForm({isEdit}) {
           {" "}
           <label>
             {" "}
-            Image Url {errors.image5 && <p className="errors">{errors.image5}</p>}
+            Image Url{" "}
+            {errors.image5 && <p className="errors">{errors.image5}</p>}
             <input
+              name="url"
               type="text"
-              value={image5}
-              onChange={(event) => setImage5(event.target.value)}
+              value={imageData[4].url}
+              onChange={(event) =>
+                setImageData({
+                  ...imageData,
+                  4: { [event.target.name]: event.target.value },
+                })
+              }
             ></input>
           </label>
         </div>
       </div>
-      <button className="submit-button" onClick={submit}>Create Spot</button>
+      <button className="submit-button" onClick={submit}>
+        Create Spot
+      </button>
     </form>
   );
 }

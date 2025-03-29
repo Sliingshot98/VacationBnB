@@ -29,7 +29,9 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
   if (theReview.ReviewImages.length >= 10) {
     res
       .status(403)
-      .json({ message: "Maximum number of images for this resource was reached" });
+      .json({
+        message: "Maximum number of images for this resource was reached",
+      });
   }
 
   const newReviewImage = await ReviewImage.create({
@@ -80,8 +82,8 @@ router.put("/:reviewId", requireAuth, validateReview, async (req, res) => {
 router.delete("/:reviewId", requireAuth, async (req, res, next) => {
   const reviewId = parseInt(req.params.reviewId);
   const { user } = req;
-  if(isNaN(reviewId)){
-    next()
+  if (isNaN(reviewId)) {
+    next();
   }
   try {
     const review = await Review.findByPk(reviewId);

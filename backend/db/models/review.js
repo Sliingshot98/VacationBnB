@@ -8,22 +8,22 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "spotId",
       });
       Review.hasMany(models.ReviewImage, {
-        foreignKey: "reviewId"
+        foreignKey: "reviewId",
       });
       Review.belongsTo(models.User, {
-        foreignKey: "userId"
+        foreignKey: "userId",
       });
-    };
-  };
+    }
+  }
   Review.init(
     {
       spotId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-      //   references: {
-      //     model: 'Spots'
-      //  }, 
-      //  onDelete:"CASCADE",
+        //   references: {
+        //     model: 'Spots'
+        //  },
+        //  onDelete:"CASCADE",
       },
       userId: {
         type: DataTypes.INTEGER,
@@ -44,11 +44,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       defaultScope: {
         attributes: {
-          exclude: [ 
-            'username',
-            'email'
-          ]
-        }
+          exclude: ["username", "email"],
+        },
       },
       sequelize,
       modelName: "Review",

@@ -3,9 +3,7 @@ import { useDispatch } from "react-redux";
 import { deleteReview } from "../../store/thunks/review";
 import { useModal } from "../../context/Modal";
 
-
 function DeleteReviewButton({ reviewId }) {
-  console.log(reviewId);
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const handleDelete = async () => {

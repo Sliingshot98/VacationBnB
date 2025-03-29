@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Booking extends Model {
     /**
@@ -9,37 +9,40 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Booking.belongsTo(models.Spot, {
-        foreignKey:"spotId"
+        foreignKey: "spotId",
       }),
-      Booking.belongsTo(models.User, {
-        foreignKey: "userId"
-      })
+        Booking.belongsTo(models.User, {
+          foreignKey: "userId",
+        });
     }
   }
-  Booking.init({
-    spotId: {
-      type: DataTypes.INTEGER,
-      references:{
-        model: "Spots"
+  Booking.init(
+    {
+      spotId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "Spots",
+        },
+        onDelete: "CASCADE",
       },
-      onDelete: "CASCADE"
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      references:{
-        model: "Users"
+      userId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "Users",
+        },
+        onDelete: "CASCADE",
       },
-        onDelete:"CASCADE"
+      startDate: {
+        type: DataTypes.DATE,
+      },
+      endDate: {
+        type: DataTypes.DATE,
+      },
     },
-    startDate: {
-      type: DataTypes.DATE
-    },
-    endDate: {
-      type: DataTypes.DATE
-    },
-  }, {
-    sequelize,
-    modelName: 'Booking',
-  });
+    {
+      sequelize,
+      modelName: "Booking",
+    }
+  );
   return Booking;
 };

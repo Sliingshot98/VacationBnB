@@ -1,10 +1,8 @@
-// frontend/src/components/LoginFormModal/LoginFormModal.jsx
-
-import { useState } from 'react';
-import * as sessionActions from '../../store/session';
-import { useDispatch } from 'react-redux';
-import { useModal } from '../../context/Modal';
-import './LoginForm.css';
+import { useState } from "react";
+import * as sessionActions from "../../store/session";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import "./LoginFormModal.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -25,16 +23,16 @@ function LoginFormModal() {
         }
       });
   };
-  const signInAsDemo = function(){
+  const signInAsDemo = function () {
     const payload = {
       credential: "Demo-lition",
-      password: "password"
-    }
-    dispatch(sessionActions.login(payload))
-    closeModal()
-  }
+      password: "password",
+    };
+    dispatch(sessionActions.login(payload));
+    closeModal();
+  };
   return (
-    <>
+    <div className="LoginFormModal">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -55,14 +53,12 @@ function LoginFormModal() {
             required
           />
         </label>
-        
-        {errors.credential && (
-          <p className='errors'>{errors.credential}</p>
-        )}
+
+        {errors.credential && <p className="errors">{errors.credential}</p>}
         <button type="submit">Log In</button>
       </form>
       <a onClick={signInAsDemo}>Sign in as a Demo User</a>
-    </>
+    </div>
   );
 }
 

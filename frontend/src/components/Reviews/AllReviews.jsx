@@ -9,25 +9,27 @@ import DeleteReviewButton from "./DeleteReviewModal";
 function GetReviews() {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const sessionUser = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => state.reviewsReducer.reviews);
-  const reviewsArray= Object.values(reviews || {})
-  console.log(reviewsArray)
+  const reviewsArray = Object.values(reviews || {});
+
   useEffect(() => {
     if (!reviews || !reviewsArray.length) dispatch(allReviewsBySpotId(id));
   }, [reviews, reviewsArray.length, dispatch, id]);
-  
+
   return (
     <>
       {reviewsArray.length > 0 &&
         reviewsArray.map((ele, idx) => {
-          console.log(ele);
           return (
             <div key={idx}>
-              <OpenModal
-                buttonText="Delete Review"
-                modalComponent={<DeleteReviewButton reviewId={ele.id} />}
-              ></OpenModal>
-              <p >
+              {sessionUser && sessionUser.id === ele.id && (
+                <OpenModal
+                  buttonText="Delete Review"
+                  modalComponent={<DeleteReviewButton reviewId={ele.id} />}
+                ></OpenModal>
+              )}
+              <p>
                 {ele.User.firstName} {ele.updatedAt} {ele.review}
               </p>
             </div>

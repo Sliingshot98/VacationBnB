@@ -8,43 +8,43 @@ const UPDATE_REVIEW = "reviews/putUpdateReview";
 const DELETE_REVIEW = "reviews/deleteDeleteREview";
 
 const reviews = (reviews) => {
-    return {
-      type: ALL_REVIEWS,
-      payload: reviews,
-    };
+  return {
+    type: ALL_REVIEWS,
+    payload: reviews,
   };
-  // const details = (reviews) => {
-  //   return {
-  //     type: SPOT_REVIEWS,
-  //     payload: reviews,
-  //   };
-  // };
-  // const userSpotReviews = (reviews) => {
-  //   return {
-  //     type: USER_SPOT_REVIEWS,
-  //     payload: reviews,
-  //   };
-  // };
-  const create = (review) => {
-    return {
-      type: CREATE_REVIEW,
-      payload: review,
-    };
+};
+// const details = (reviews) => {
+//   return {
+//     type: SPOT_REVIEWS,
+//     payload: reviews,
+//   };
+// };
+// const userSpotReviews = (reviews) => {
+//   return {
+//     type: USER_SPOT_REVIEWS,
+//     payload: reviews,
+//   };
+// };
+const create = (review) => {
+  return {
+    type: CREATE_REVIEW,
+    payload: review,
   };
-  const update = (payload) => {
-    return {
-      type: UPDATE_REVIEW,
-      payload,
-    };
+};
+const update = (payload) => {
+  return {
+    type: UPDATE_REVIEW,
+    payload,
   };
-  const deleteTheReview = (payload) => {
-    return {
-      type: DELETE_REVIEW,
-      payload,
-    };
+};
+const deleteTheReview = (payload) => {
+  return {
+    type: DELETE_REVIEW,
+    payload,
   };
+};
 // //================GET ALL REVIEWS++++++++++++++++
-export const allReviewsBySpotId= (spotId) => async (dispatch) => {
+export const allReviewsBySpotId = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
   const data = await response.json();
   dispatch(reviews(data.Reviews));
@@ -55,11 +55,10 @@ export const allReviewsBySpotId= (spotId) => async (dispatch) => {
 // export const spotReviewsByUser = () => async (dispatch) => {
 //   const response = await csrfFetch("/api/reviews/current");
 //   const data = await response.json();
-//   console.log(data)
+
 //   dispatch(details(data.Reviews));
 //   return data;
 // };
-
 
 // //==================Create Review++++++++++++++++++++++
 export const createReview = (payload) => async (dispatch) => {
@@ -71,7 +70,6 @@ export const createReview = (payload) => async (dispatch) => {
   dispatch(create(data));
   return data;
 };
-
 
 // //====================edit REVIEW======================
 
@@ -91,11 +89,10 @@ export const deleteReview = (payload) => async (dispatch) => {
     method: "DELETE",
   });
   const data = await response.json();
-  console.log('this is the data', data)
+
   dispatch(deleteTheReview(data));
   return data;
 };
-
 
 //=-===============REDUCER Party==================
 const initialState = { reviews: null };
@@ -126,7 +123,7 @@ const reviewsReducer = (state = initialState, action) => {
       };
     case DELETE_REVIEW: {
       const newState = { ...state };
-      newState.reviews= {...state.reviews}
+      newState.reviews = { ...state.reviews };
       delete newState.reviews[action.payload.id];
       return newState;
     }
@@ -135,5 +132,4 @@ const reviewsReducer = (state = initialState, action) => {
   }
 };
 
-
- export default reviewsReducer;
+export default reviewsReducer;

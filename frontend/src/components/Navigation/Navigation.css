@@ -3,8 +3,8 @@
     align-items: center;
 }
 .profileButtonInNavigation {
-    display:flex;
-    flex-direction: column;
+    display:inline;
+    flex-direction:row;
     
 }
 .create-a-spot{
@@ -15,7 +15,7 @@
 }
 .spotFormLink {
     font-size: 25px;
-    color: #da0707;
+    color: red;
     text-decoration: none;
     margin-left: 10px;
   }

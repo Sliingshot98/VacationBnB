@@ -1,13 +1,11 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import Navigation from './components/Navigation';
-import * as sessionActions from './store/session';
-import AllSpots from './components/Spots';
-import SpotDetails from './components/Spots/SpotDetails';
-import SpotForm from './components/Spots/CreateSpot';
-
-
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import Navigation from "./components/Navigation";
+import * as sessionActions from "./store/session";
+import AllSpots from "./components/Spots";
+import SpotDetails from "./components/Spots/SpotDetails";
+import SpotForm from "./components/Spots/CreateSpot";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -15,7 +13,7 @@ function Layout() {
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => {
-      setIsLoaded(true)
+      setIsLoaded(true);
     });
   }, [dispatch]);
 
@@ -32,28 +30,27 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/',
-        element: <AllSpots />
+        path: "/",
+        element: <AllSpots />,
       },
       {
-        path: '/spots/:id',
-        element: <SpotDetails />
+        path: "/spots/:id",
+        element: <SpotDetails />,
       },
       {
-        path:"/spots/new",
-        element: <SpotForm isEdit= {false} />
+        path: "/spots/new",
+        element: <SpotForm isEdit={false} />,
       },
       {
-        path:"/spots/:id/edit",
-        element: <SpotForm isEdit = {true} />
+        path: "/spots/:id/edit",
+        element: <SpotForm isEdit={true} />,
       },
       {
-       path:"/spots/current",
-       element: <AllSpots />
+        path: "/spots/current",
+        element: <AllSpots />,
       },
-      
-    ]
-  }
+    ],
+  },
 ]);
 
 function App() {

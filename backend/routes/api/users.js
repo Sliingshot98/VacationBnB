@@ -29,16 +29,13 @@ const validateSignup = [
 // Sign up
 router.post("/", validateSignup, async (req, res, next) => {
   const { firstName, lastName, email, password, username } = req.body;
-  const existingUser = await User.findOne({ 
+  const existingUser = await User.findOne({
     where: {
-      [Op.or]: 
-      [
-        { email },
-        { username },
-      ],
+      [Op.or]: [{ email }, { username }],
     },
- });
-  if (!existingUser) {const hashedPassword = bcrypt.hashSync(password);
+  });
+  if (!existingUser) {
+    const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
       firstName,
       lastName,
@@ -46,7 +43,7 @@ router.post("/", validateSignup, async (req, res, next) => {
       username,
       hashedPassword,
     });
-  
+
     const safeUser = {
       id: user.id,
       firstName: user.firstName,
@@ -54,21 +51,21 @@ router.post("/", validateSignup, async (req, res, next) => {
       email: user.email,
       username: user.username,
     };
-  
+
     await setTokenCookie(res, safeUser);
-  
+
     res.json({
       user: safeUser,
     });
   }
-   const err = new Error("User already exists") 
-   err.errors = { };
-   if (existingUser.email === email){
-    err.errors.email = "The provided email is invalid"
-   }
-   if (existingUser.username === username){
-    err.errors.username = "Username must be unique"
-   }
+  const err = new Error("User already exists");
+  err.errors = {};
+  if (existingUser.email === email) {
+    err.errors.email = "The provided email is invalid";
+  }
+  if (existingUser.username === username) {
+    err.errors.username = "Username must be unique";
+  }
   next(err);
 });
 module.exports = router;
