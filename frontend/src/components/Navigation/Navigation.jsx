@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
-import icon from "/home/green529/vacationBnB/VacationBnB/frontend/dist/vacation.jpg";
+import icon from "/home/green529/mod_5_project/VacationBnB/frontend/dist/nobackground.png";
 import { useEffect } from "react";
 import { allSpots } from "../../store/thunks/spots";
 
