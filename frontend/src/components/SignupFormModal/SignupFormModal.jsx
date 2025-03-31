@@ -15,6 +15,15 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  const signInAsDemo = function () {
+      const payload = {
+        credential: "Demo-lition",
+        password: "password",
+      };
+      dispatch(sessionActions.login(payload));
+      closeModal();
+    };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -111,6 +120,7 @@ function SignupFormModal() {
         )}
         <button type="submit">Sign Up</button>
       </form>
+      <button onClick={signInAsDemo}>Sign in as a Demo User</button>
     </div>
   );
 }

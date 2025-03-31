@@ -5,19 +5,19 @@
 .profileButtonInNavigation {
     display:inline;
     flex-direction:row;
-    
+    cursor: pointer;
 }
 .create-a-spot{
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-left: 1500px;
+    margin-left: 1400px;
 }
 .spotFormLink {
     font-size: 25px;
-    color: red;
+    color: blue;
     text-decoration: none;
-    margin-left: 10px;
+    margin-left: 1rem;
   }
   
   .spotFormLink:hover {

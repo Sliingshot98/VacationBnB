@@ -55,9 +55,10 @@ function LoginFormModal() {
         </label>
 
         {errors.credential && <p className="errors">{errors.credential}</p>}
+        
         <button type="submit">Log In</button>
       </form>
-      <a onClick={signInAsDemo}>Sign in as a Demo User</a>
+      <button onClick={signInAsDemo}>Sign in as a Demo User</button>
     </div>
   );
 }

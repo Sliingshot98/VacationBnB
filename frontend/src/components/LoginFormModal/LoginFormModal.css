@@ -1,0 +1,59 @@
+.LoginFormModal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .LoginFormModal h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .LoginFormModal form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .LoginFormModal label {
+    font-size: 14px;
+    color: #555;
+    text-align: left;
+  }
+  
+  .LoginFormModal input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .LoginFormModal input[type="password"] {
+    font-family: Arial, sans-serif;
+  }
+  
+  .LoginFormModal button {
+    padding: 12px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .LoginFormModal .errors {
+    color: red;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  
+ 
+  

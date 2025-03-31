@@ -59,7 +59,8 @@ function ProfileButton({ user }) {
       <div className="profile-square">
         <ul className={ulClassName} ref={ulRef}>
           {user ? (
-            <>
+            <div className="inner-profile-square">
+              
               <li>{user.username}</li>
               <li>
                 {user.firstName} {user.lastName}
@@ -75,20 +76,23 @@ function ProfileButton({ user }) {
                   Log Out
                 </button>
               </li>
-            </>
+            </div>
           ) : (
             <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
+              <button className="login">
+                <OpenModalMenuItem
+                  itemText="Log In"
+                  onItemClick={closeMenu}
+                  modalComponent={<LoginFormModal />}
+                />
+              </button>
+              <button className="sign-up">
+               <OpenModalMenuItem
+                  itemText="Sign Up"
+                  onItemClick={closeMenu}
+                  modalComponent={<SignupFormModal />}
+                />
+              </button>
             </>
           )}
         </ul>

@@ -21,10 +21,12 @@ function Navigation({ isLoaded }) {
         display: "flex",
         width: "100vw",
         justifyContent: "space-between",
+        alignItems: "center",
         listStyle: "none",
+        padding: "10px 20px"
       }}
     >
-      <li>
+      <li style={{ display: "flex", alignItems: "center" }}>
         <NavLink className="home" to="/">
           <img
             src={icon}
@@ -32,6 +34,7 @@ function Navigation({ isLoaded }) {
             style={{ width: "100px", height: "100px" }}
           />
         </NavLink>
+        </li>
         <div className="create-a-spot">
           {sessionUser && (
             <NavLink className="spotFormLink" to="/spots/new">
@@ -39,7 +42,7 @@ function Navigation({ isLoaded }) {
             </NavLink>
           )}
         </div>
-      </li>
+      
       {isLoaded && (
         <li className="profileButtonInNavigation">
           <ProfileButton className="profileButton" user={sessionUser} />
